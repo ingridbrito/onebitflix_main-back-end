@@ -2,7 +2,20 @@ import { Request, Response } from "express";
 import { courseService } from "../services/coursesServices";
 
 export const coursesController ={
-   //GET /courses/featured
+     //GET /courses/newest
+     newest: async (req: Request, res: Response) => {
+    
+        try {
+          const newestCourses = await courseService.getTopTenNewest()
+          return res.json(newestCourses)
+        } catch (err) {
+            if (err instanceof Error) {
+                return res.status(400).json({ message: err.message })
+            }
+        }
+      },
+   
+    //GET /courses/featured
    featured: async (req: Request, res: Response) => {
 
     try {
@@ -26,7 +39,6 @@ export const coursesController ={
             return res.status(400).json({ message: err.message })
         }
     }
-  }
-
+  },
 
 }
