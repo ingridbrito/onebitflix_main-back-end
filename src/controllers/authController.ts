@@ -43,7 +43,7 @@ try {
     const user = await userService.findByEmail(email)
 
     if(!user) {
-        return res.status(401).json({message: 'E-mail não registradp'})
+        return res.status(401).json({message: 'E-mail não registrado'})
     }
 
     user.checkPassword(password, (err, isSame) => {
