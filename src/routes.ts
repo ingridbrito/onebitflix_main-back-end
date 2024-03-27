@@ -2,10 +2,12 @@ import express from 'express'
 import { categoriesController } from './controllers/categoriesController'
 import { coursesController } from './controllers/coursesController'
 import { episodesController } from './controllers/episodesController'
+import { favoriteController } from './controllers/favoritesController'
 import { authController } from './controllers/authController'
 import { ensureAuth, ensureAuthViaQuery } from './middlewares/auth'
-
 const router = express.Router()
+
+router.post('/favorites', ensureAuth, favoriteController.save)
 
 router.post('/auth/register', authController.register)
 router.post('/auth/login', authController.login)
