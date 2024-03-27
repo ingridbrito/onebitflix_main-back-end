@@ -3,6 +3,8 @@ import { sequelize } from "../database"
 
 import bcryptjs from 'bcryptjs'
 
+type ChechPasswordCallback = (err?: Error | undefined, isSame?:boolean) => void
+
 export interface User{
     id: number
     firstName: string
@@ -15,7 +17,9 @@ export interface User{
 }
 export interface UserCreationAttributes extends Optional<User, 'id'> { }
 
-export interface UserInstance extends Model<User, UserCreationAttributes>, User {}
+export interface UserInstance extends Model<User, UserCreationAttributes>, User {
+  checkPassword: (password: string, callbackfn: ChechPasswordCallback) => void
+}
 
 export const User = sequelize.define<UserInstance, User>('users', {
     id: {
@@ -69,3 +73,12 @@ export const User = sequelize.define<UserInstance, User>('users', {
     }}
   )
  
+  User.prototype.checkPassword = function (password: string, callbackfn: ChechPasswordCallback) {
+   bcryptjs.compare(password, this.password, (err, isSame)=>{
+    if (err !== null){
+      callbackfn(err)
+    }else{
+      callbackfn(undefined, isSame)
+    }
+   })
+  }
