@@ -11,6 +11,8 @@ app.use(express.static('public'))
 app.use(adminJs.options.rootPath, adminJsRouter)
 //indica o caminho no navegador
 
+app.use(express.json())
+
 app.use(router)
 
 const PORT = process.env.PORT || 3000 
