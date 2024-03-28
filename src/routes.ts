@@ -9,6 +9,8 @@ const router = express.Router()
 
 router.get('/favorites', ensureAuth, favoriteController.index)
 router.post('/favorites', ensureAuth, favoriteController.save)
+router.delete('/favorites', ensureAuth, favoriteController.delete)
+
 
 router.post('/auth/register', authController.register)
 router.post('/auth/login', authController.login)
