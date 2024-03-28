@@ -17,5 +17,20 @@ export const favoriteController = {
                 return res.status(400).json({ message: err.message })
             }
         }
+    },
+
+
+    //GET /favorites
+    index: async (req: AuthenticatedRequest, res: Response) => {
+        const userId = req.user!.id
+
+        try {
+            const favorites = await favoriteService.findByUserid(userId)
+            return res.json(favorites)
+        } catch (err) {
+            if (err instanceof Error) {
+                return res.status(400).json({ message: err.message })
+              }
+        }
     }
 }

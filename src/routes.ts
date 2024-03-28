@@ -7,6 +7,7 @@ import { authController } from './controllers/authController'
 import { ensureAuth, ensureAuthViaQuery } from './middlewares/auth'
 const router = express.Router()
 
+router.get('/favorites', ensureAuth, favoriteController.index)
 router.post('/favorites', ensureAuth, favoriteController.save)
 
 router.post('/auth/register', authController.register)
