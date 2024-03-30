@@ -71,4 +71,15 @@ export const coursesController ={
     }
   },
 
+  popular: async (req:Request, res: Response) => {
+    try{
+        const topTen = await courseService.getTopTenLikes()
+        return res.json(topTen)
+    }catch(err){
+        if (err instanceof Error) {
+            return res.status(400).json({ message: err.message })
+          }
+    }
+  }
+
 }
