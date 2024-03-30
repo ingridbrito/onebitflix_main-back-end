@@ -34,7 +34,7 @@ export const favoriteController = {
         }
     },
 
-    //DELETE / favorites
+    //DELETE / favorites/:id
     delete: async (req: AuthenticatedRequest, res: Response) => {
         const userId = req.user!.id
         const courseId = req.params.id
